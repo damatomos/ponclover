@@ -22,9 +22,7 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_q4ipx")
 offset = Vector2(200, 0)
 
-[node name="Arrow" type="Node2D" parent="TrajectoryLine"]
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="TrajectoryLine/Arrow"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="TrajectoryLine"]
 offset_left = -10.0
 offset_top = -39.0
 offset_right = 490.0
