@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://qy1o3jj88m7i"]
+
+[ext_resource type="Script" path="res://Area2D.gd" id="1_xv57b"]
+[ext_resource type="Texture2D" uid="uid://bw0ji6mikpmoj" path="res://icon.svg" id="2_06sdv"]
+[ext_resource type="Script" path="res://Barrel.gd" id="3_dbmyv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_03b8x"]
+size = Vector2(1257, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spy4y"]
+size = Vector2(123, 126)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pf818"]
+size = Vector2(127, 25)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(3, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(604, 620)
+shape = SubResource("RectangleShape2D_03b8x")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(113, 350)
+script = ExtResource("1_xv57b")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("2_06sdv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_spy4y")
+
+[node name="Barrel" type="StaticBody2D" parent="."]
+position = Vector2(132, 328)
+script = ExtResource("3_dbmyv")
+
+[node name="Sprite2D" type="Sprite2D" parent="Barrel"]
+position = Vector2(54, 0)
+scale = Vector2(1, 0.210938)
+texture = ExtResource("2_06sdv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barrel"]
+position = Vector2(53.5, -0.5)
+shape = SubResource("RectangleShape2D_pf818")
+disabled = true
+
+[node name="BarrelPosition" type="Node2D" parent="Barrel"]
+position = Vector2(118, 1)
