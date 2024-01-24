@@ -70,6 +70,7 @@ func update_trajectory(dir: Vector2, speed: float, gravity: float, delta: float)
 func _input(event):
 	
 	if event is InputEventMouseButton and event.pressed:
-		distance = get_global_mouse_position()
-		#position = distance
-		mouse_button_down = true
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			distance = get_global_mouse_position()
+			#position = distance
+			mouse_button_down = true
