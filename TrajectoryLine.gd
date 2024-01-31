@@ -11,32 +11,28 @@ var mouse_button_down: bool = false
 var angle_arrow: float = 0
 var force_arrow: float = 0
 
+signal last_position_pointer(pos: Vector2)
+
 func _ready():
 	rotation_degrees = 0
 
 func shoot():
-	var b = Ball.instantiate()
+	var b = Ball.instantiate() as RigidBody2D
 	owner.add_child(b)
-	print("force: ", force_arrow)
-	b.transform = self.global_transform
-	b.velocity = b.transform.x * force_arrow * 1.2 * 10 #muzzle_velocity
-	b.gravity = gravity
+	b.transform = $Arrow.global_transform
+	b.linear_velocity = b.transform.x * force_arrow * 1.2 * 10 #muzzle_velocity
+	#b.gravity = gravity
 
 func _process(delta):
 	#show()
-	#update_trajectory(self.global_position, muzzle_velocity, gravity, delta)
 	
 	if !Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and mouse_button_down:
 		shoot()
 		mouse_button_down = false
-		#$Sprite2D.scale.x = 0.5
-		$TextureProgressBar.value = 0
+		$Arrow/TextureProgressBar.value = 0
 		force_arrow = 0
 	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		#look_at(get_global_mouse_position())
-		#print(clamp((distance - get_global_mouse_position()).y, -45, 45))
-		#rotation_degrees = clamp((distance - get_global_mouse_position()).y, -90, 90)
-		#position.direction_to(get_global_mouse_position())
+		update_trajectory(delta)
 		var moveY = (distance - get_global_mouse_position()).y
 		var moveX = (distance - get_global_mouse_position()).x
 		distance = get_global_mouse_position()
@@ -44,32 +40,32 @@ func _process(delta):
 			angle_arrow += 2
 		elif angle_arrow > -90 and moveY > 0:
 			angle_arrow -= 2
-		rotation_degrees = angle_arrow
-		
+		#rotation_degrees = angle_arrow
+		$Arrow.rotation_degrees = angle_arrow
 		if moveX < 0 and force_arrow >= 0:
-			force_arrow -= 5
+			force_arrow -= 1.5
 		elif moveX > 0 and force_arrow < 100:
-			force_arrow += 5
-		print("force: ", force_arrow)
-			#$TextureProgressBar.value += 3
+			force_arrow += 1.5
 		
-		$TextureProgressBar.value = (force_arrow / 100) * 100
-		print(force_arrow)
-		
-		
-func update_trajectory(dir: Vector2, speed: float, gravity: float, delta: float) -> void:
-		var max_points = 8
+		$Arrow/TextureProgressBar.value = (force_arrow / 100) * 100
+
+func update_trajectory(delta: float) -> void:
+		var vel: Vector2 = $Arrow.global_transform.x * force_arrow * 1.2 * 10
+		var num_of_points = 30#100.0
 		clear_points()
-		var pos: Vector2 = Vector2.ZERO
-		var vel = dir * speed
-		for i in max_points:
-			add_point(pos)
+		var pos = Vector2.ZERO
+		for point in num_of_points:
 			vel.y += gravity * delta
 			pos += vel * delta
+			add_point(pos)
+			if point == 99:
+				print("Last Pos: ", get_point_position(99))
+				pass
+				#last_position_pointer.emit(pos)
 
 func _input(event):
 	
 	if event is InputEventMouseButton and event.pressed:
-		distance = get_global_mouse_position()
-		#position = distance
-		mouse_button_down = true
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			distance = get_global_mouse_position()
+			mouse_button_down = true

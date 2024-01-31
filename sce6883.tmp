@@ -1,0 +1,199 @@
+[gd_scene load_steps=6 format=3 uid="uid://hhqwmasht63"]
+
+[ext_resource type="Script" path="res://TrajectoryLine.gd" id="1_7uul1"]
+[ext_resource type="Texture2D" uid="uid://bngvgjgl0rmmt" path="res://assets/arrow.png" id="2_q4ipx"]
+[ext_resource type="Texture2D" uid="uid://d1g8e3ds5gosu" path="res://assets/arrow_green.png" id="3_6xfqc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lie8o"]
+size = Vector2(80, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4b8xh"]
+size = Vector2(3, 19)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TrajectoryLine" type="Line2D" parent="."]
+position = Vector2(86, 565)
+script = ExtResource("1_7uul1")
+
+[node name="Sprite2D" type="Sprite2D" parent="TrajectoryLine"]
+visible = false
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_q4ipx")
+offset = Vector2(200, 0)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="TrajectoryLine"]
+offset_left = -10.0
+offset_top = -39.0
+offset_right = 490.0
+offset_bottom = 347.0
+scale = Vector2(0.2, 0.2)
+texture_under = ExtResource("2_q4ipx")
+texture_progress = ExtResource("3_6xfqc")
+
+[node name="Hoop" type="Node2D" parent="."]
+position = Vector2(988, 404)
+
+[node name="Aro" type="RigidBody2D" parent="Hoop"]
+position = Vector2(0, -5)
+freeze = true
+
+[node name="ColorRect" type="ColorRect" parent="Hoop/Aro"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(2, 0.16)
+color = Color(0.909804, 0.160784, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Aro"]
+position = Vector2(40, 3)
+shape = SubResource("RectangleShape2D_lie8o")
+
+[node name="Line01Connection" type="PinJoint2D" parent="Hoop"]
+position = Vector2(3, 56)
+node_a = NodePath("../Aro")
+node_b = NodePath("../Line01/line01")
+
+[node name="Line01" type="Node2D" parent="Hoop"]
+
+[node name="line01" type="RigidBody2D" parent="Hoop/Line01"]
+collision_layer = 2
+freeze = true
+
+[node name="ColorRect" type="ColorRect" parent="Hoop/Line01/line01"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.12, 0.48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line01/line01"]
+position = Vector2(2.5, 9.5)
+shape = SubResource("RectangleShape2D_4b8xh")
+
+[node name="line02" type="RigidBody2D" parent="Hoop/Line01"]
+position = Vector2(0, 19)
+collision_layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="Hoop/Line01/line02"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.12, 0.48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line01/line02"]
+position = Vector2(2.5, 9.5)
+shape = SubResource("RectangleShape2D_4b8xh")
+
+[node name="line03" type="RigidBody2D" parent="Hoop/Line01"]
+position = Vector2(0, 38)
+collision_layer = 3
+
+[node name="ColorRect" type="ColorRect" parent="Hoop/Line01/line03"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.12, 0.48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line01/line03"]
+position = Vector2(2.5, 9.5)
+shape = SubResource("RectangleShape2D_4b8xh")
+
+[node name="line04" type="RigidBody2D" parent="Hoop/Line01"]
+position = Vector2(0, 57)
+collision_layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="Hoop/Line01/line04"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.12, 0.48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line01/line04"]
+position = Vector2(2.5, 9.5)
+shape = SubResource("RectangleShape2D_4b8xh")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop/Line01"]
+position = Vector2(3, 19)
+node_a = NodePath("../line01")
+node_b = NodePath("../line02")
+bias = 0.2
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="Hoop/Line01"]
+position = Vector2(3, 37)
+node_a = NodePath("../line03")
+node_b = NodePath("../line02")
+bias = 0.2
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="Hoop/Line01"]
+position = Vector2(3, 56)
+node_a = NodePath("../line03")
+node_b = NodePath("../line04")
+bias = 0.2
+
+[node name="Line02" type="Node2D" parent="Hoop"]
+position = Vector2(75, 0)
+
+[node name="line01" type="RigidBody2D" parent="Hoop/Line02"]
+collision_layer = 2
+freeze = true
+
+[node name="ColorRect" type="ColorRect" parent="Hoop/Line02/line01"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.12, 0.48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line02/line01"]
+position = Vector2(2.5, 9.5)
+shape = SubResource("RectangleShape2D_4b8xh")
+
+[node name="line02" type="RigidBody2D" parent="Hoop/Line02"]
+position = Vector2(0, 19)
+collision_layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="Hoop/Line02/line02"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.12, 0.48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line02/line02"]
+position = Vector2(2.5, 9.5)
+shape = SubResource("RectangleShape2D_4b8xh")
+
+[node name="line03" type="RigidBody2D" parent="Hoop/Line02"]
+position = Vector2(0, 38)
+collision_layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="Hoop/Line02/line03"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.12, 0.48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line02/line03"]
+position = Vector2(2.5, 9.5)
+shape = SubResource("RectangleShape2D_4b8xh")
+
+[node name="line04" type="RigidBody2D" parent="Hoop/Line02"]
+position = Vector2(0, 57)
+collision_layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="Hoop/Line02/line04"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.12, 0.48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line02/line04"]
+position = Vector2(2.5, 9.5)
+shape = SubResource("RectangleShape2D_4b8xh")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop/Line02"]
+position = Vector2(3, 19)
+node_a = NodePath("../line01")
+node_b = NodePath("../line02")
+bias = 0.2
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="Hoop/Line02"]
+position = Vector2(3, 37)
+node_a = NodePath("../line03")
+node_b = NodePath("../line02")
+bias = 0.2
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="Hoop/Line02"]
+position = Vector2(3, 56)
+node_a = NodePath("../line03")
+node_b = NodePath("../line04")
+bias = 0.2
