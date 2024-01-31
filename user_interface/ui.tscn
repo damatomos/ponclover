@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6llecsoohpli"]
+
+[ext_resource type="Texture2D" uid="uid://crgj7qcvlyelg" path="res://assets/default_ball.png" id="1_2lt0y"]
+[ext_resource type="Script" path="res://user_interface/ui.gd" id="1_g7iw6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qf84y"]
+font_size = 50
+font_color = Color(0.192157, 0.870588, 0.0156863, 1)
+outline_size = 10
+outline_color = Color(0, 0.278431, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_eybna"]
+font_size = 50
+font_color = Color(1, 0, 0, 1)
+outline_size = 10
+outline_color = Color(0.317647, 0, 0, 1)
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_g7iw6")
+
+[node name="TotalWin" type="Control" parent="."]
+layout_mode = 3
+anchor_top = 0.05
+anchor_right = 0.213
+anchor_bottom = 0.146
+offset_right = 0.319977
+offset_bottom = -0.320007
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TotalWin"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="TotalWin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "10"
+label_settings = SubResource("LabelSettings_qf84y")
+
+[node name="TextureRect" type="TextureRect" parent="TotalWin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("1_2lt0y")
+expand_mode = 2
+
+[node name="TotalLost" type="Control" parent="."]
+layout_mode = 3
+anchor_left = 0.787
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 0.146
+offset_right = 0.319946
+offset_bottom = -0.320007
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TotalLost"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="TotalLost/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "10"
+label_settings = SubResource("LabelSettings_eybna")
+
+[node name="TextureRect" type="TextureRect" parent="TotalLost/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("1_2lt0y")
+expand_mode = 2

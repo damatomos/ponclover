@@ -4,6 +4,8 @@ extends RigidBody2D
 
 #var gravity = 680
 
+var hit := false
+
 func _ready():
 	linear_velocity.x = 350
 	$Timer.start(5)
@@ -22,4 +24,6 @@ func _process(delta):
 
 
 func _on_timer_timeout():
+	if !hit:
+		GameManager.total_lost += 1
 	queue_free()

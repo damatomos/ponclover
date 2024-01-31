@@ -28,7 +28,6 @@ func get_new_position(delta: float):
 	var value = clampf(finish_position.y, finish_position.y - (finish_position.y * delta), finish_position.y + (finish_position.y * delta))
 	if (value + 1 >= position.y or position.y <= value - 1) and can_change:
 		can_change = false
-		print("entrou")
 		finish_position = Vector2(start.x, rng.randf_range(start.y, end.y))
 		$Timer.start(0.5)
 	
@@ -48,4 +47,4 @@ func _on_area_2d_body_entered(body):
 		can_change = false
 		stoped = true
 		finish_position = end
-		SPEED = 16000
+		SPEED = 30000
