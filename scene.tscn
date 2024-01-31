@@ -1,201 +1,92 @@
-[gd_scene load_steps=6 format=3 uid="uid://hhqwmasht63"]
+[gd_scene load_steps=11 format=3 uid="uid://hhqwmasht63"]
 
-[ext_resource type="Script" path="res://TrajectoryLine.gd" id="1_7uul1"]
-[ext_resource type="Texture2D" uid="uid://bngvgjgl0rmmt" path="res://assets/arrow.png" id="2_q4ipx"]
-[ext_resource type="Texture2D" uid="uid://d1g8e3ds5gosu" path="res://assets/arrow_green.png" id="3_6xfqc"]
+[ext_resource type="Texture2D" uid="uid://dcspl0gwqiat3" path="res://assets/background.jpg" id="1_1ej2j"]
+[ext_resource type="PackedScene" uid="uid://djr8mwf102w0i" path="res://scenes/player/player.tscn" id="1_nkgis"]
+[ext_resource type="Script" path="res://scenes/level.gd" id="1_y7tum"]
+[ext_resource type="Texture2D" uid="uid://xt3qlaowm6i" path="res://assets/footer.png" id="4_w2vgj"]
+[ext_resource type="Texture2D" uid="uid://b2tqsmfmd32v0" path="res://assets/top.png" id="5_8ehq4"]
+[ext_resource type="Texture2D" uid="uid://ds7p5fn3co5wg" path="res://assets/kuma.png" id="6_h5ae4"]
+[ext_resource type="Script" path="res://Kuma.gd" id="6_m331u"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lie8o"]
-size = Vector2(80, 6)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mxwke"]
+size = Vector2(1203, 75)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4b8xh"]
-size = Vector2(3, 19)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d130n"]
+radius = 7.0
+height = 118.0
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmuc1"]
+size = Vector2(474.004, 508)
 
-[node name="TrajectoryLine" type="Line2D" parent="."]
-position = Vector2(86, 565)
-script = ExtResource("1_7uul1")
+[node name="Level" type="Node2D"]
+script = ExtResource("1_y7tum")
 
-[node name="Sprite2D" type="Sprite2D" parent="TrajectoryLine"]
-visible = false
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_q4ipx")
-offset = Vector2(200, 0)
+[node name="Bg" type="Sprite2D" parent="."]
+position = Vector2(480, 357)
+scale = Vector2(0.242246, 0.242246)
+texture = ExtResource("1_1ej2j")
 
-[node name="Arrow" type="Node2D" parent="TrajectoryLine"]
+[node name="Player" parent="." instance=ExtResource("1_nkgis")]
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="TrajectoryLine/Arrow"]
-offset_left = -10.0
-offset_top = -39.0
-offset_right = 490.0
-offset_bottom = 347.0
-scale = Vector2(0.2, 0.2)
-texture_under = ExtResource("2_q4ipx")
-texture_progress = ExtResource("3_6xfqc")
+[node name="Ground" type="StaticBody2D" parent="."]
+collision_mask = 5
 
-[node name="Hoop" type="Node2D" parent="."]
-position = Vector2(988, 404)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(591.5, 665.5)
+shape = SubResource("RectangleShape2D_mxwke")
 
-[node name="Aro" type="RigidBody2D" parent="Hoop"]
-position = Vector2(0, -5)
-freeze = true
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(1074, 535)
 
-[node name="ColorRect" type="ColorRect" parent="Hoop/Aro"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(2, 0.16)
-color = Color(0.909804, 0.160784, 0, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, -64)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_d130n")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Aro"]
-position = Vector2(40, 3)
-shape = SubResource("RectangleShape2D_lie8o")
+[node name="StaticBody2D" type="StaticBody2D" parent="Area2D"]
 
-[node name="Line01Connection" type="PinJoint2D" parent="Hoop"]
-position = Vector2(3, 56)
-node_a = NodePath("../Aro")
-node_b = NodePath("../Line01/line01")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D/StaticBody2D"]
+polygon = PackedVector2Array(-66, -64, -71, -65, -74, -63, -72, -57, -72, -49, -66, -45, -65, 49, -63, 59, -56, 67, -48, 72, 48, 72, 59, 65, 65, 53, 65, -44, 70, -47, 70, -54, 71, -62, 70, -65, 64, -64, 63, -50, 56, -43, 56, 51, 52, 58, 45, 62, -42, 63, -51, 59, -56, 50, -56, -45, -65, -50)
 
-[node name="Line01" type="Node2D" parent="Hoop"]
+[node name="Cesta" type="Sprite2D" parent="Area2D"]
+position = Vector2(5.72205e-06, 4.00002)
+scale = Vector2(0.403727, 0.428571)
+texture = ExtResource("4_w2vgj")
 
-[node name="line01" type="RigidBody2D" parent="Hoop/Line01"]
-collision_layer = 2
-freeze = true
+[node name="Top" type="Sprite2D" parent="Area2D"]
+z_index = 2
+position = Vector2(-1.22728, -54)
+scale = Vector2(0.418182, 0.418182)
+texture = ExtResource("5_8ehq4")
 
-[node name="ColorRect" type="ColorRect" parent="Hoop/Line01/line01"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.12, 0.48)
+[node name="EndPointKuma" type="Marker2D" parent="."]
+position = Vector2(1073, 435)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line01/line01"]
-position = Vector2(2.5, 9.5)
-shape = SubResource("RectangleShape2D_4b8xh")
+[node name="StartPointKuma2" type="Marker2D" parent="."]
+position = Vector2(1073, 100)
 
-[node name="line02" type="RigidBody2D" parent="Hoop/Line01"]
-position = Vector2(0, 19)
-collision_layer = 2
+[node name="Kuma" type="CharacterBody2D" parent="."]
+position = Vector2(1073.12, 435.375)
+script = ExtResource("6_m331u")
 
-[node name="ColorRect" type="ColorRect" parent="Hoop/Line01/line02"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.12, 0.48)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Kuma"]
+polygon = PackedVector2Array(-69.124, 34.625, -70.124, 29.625, -68.124, 23.625, -60.124, 19.625, -54.124, 19.625, -38.124, 20.625, -30.124, 19.625, -2.12402, 17.625, 28.876, 19.625, 34.876, 20.625, 52.876, 19.625, 60.876, 19.625, 67.876, 23.625, 69.876, 26.625, 69.876, 30.625, 68.876, 34.625)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line01/line02"]
-position = Vector2(2.5, 9.5)
-shape = SubResource("RectangleShape2D_4b8xh")
+[node name="Kuma" type="Sprite2D" parent="Kuma"]
+position = Vector2(-0.00012207, 0)
+scale = Vector2(0.177195, 0.177195)
+texture = ExtResource("6_h5ae4")
 
-[node name="line03" type="RigidBody2D" parent="Hoop/Line01"]
-position = Vector2(0, 38)
-collision_layer = 3
+[node name="Timer" type="Timer" parent="Kuma"]
+one_shot = true
 
-[node name="ColorRect" type="ColorRect" parent="Hoop/Line01/line03"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.12, 0.48)
+[node name="Area2D" type="Area2D" parent="Kuma"]
+collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line01/line03"]
-position = Vector2(2.5, 9.5)
-shape = SubResource("RectangleShape2D_4b8xh")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Kuma/Area2D"]
+position = Vector2(-171.122, 270.625)
+shape = SubResource("RectangleShape2D_kmuc1")
 
-[node name="line04" type="RigidBody2D" parent="Hoop/Line01"]
-position = Vector2(0, 57)
-collision_layer = 2
-
-[node name="ColorRect" type="ColorRect" parent="Hoop/Line01/line04"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.12, 0.48)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line01/line04"]
-position = Vector2(2.5, 9.5)
-shape = SubResource("RectangleShape2D_4b8xh")
-
-[node name="PinJoint2D" type="PinJoint2D" parent="Hoop/Line01"]
-position = Vector2(3, 19)
-node_a = NodePath("../line01")
-node_b = NodePath("../line02")
-bias = 0.2
-
-[node name="PinJoint2D2" type="PinJoint2D" parent="Hoop/Line01"]
-position = Vector2(3, 37)
-node_a = NodePath("../line03")
-node_b = NodePath("../line02")
-bias = 0.2
-
-[node name="PinJoint2D3" type="PinJoint2D" parent="Hoop/Line01"]
-position = Vector2(3, 56)
-node_a = NodePath("../line03")
-node_b = NodePath("../line04")
-bias = 0.2
-
-[node name="Line02" type="Node2D" parent="Hoop"]
-position = Vector2(75, 0)
-
-[node name="line01" type="RigidBody2D" parent="Hoop/Line02"]
-collision_layer = 2
-freeze = true
-
-[node name="ColorRect" type="ColorRect" parent="Hoop/Line02/line01"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.12, 0.48)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line02/line01"]
-position = Vector2(2.5, 9.5)
-shape = SubResource("RectangleShape2D_4b8xh")
-
-[node name="line02" type="RigidBody2D" parent="Hoop/Line02"]
-position = Vector2(0, 19)
-collision_layer = 2
-
-[node name="ColorRect" type="ColorRect" parent="Hoop/Line02/line02"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.12, 0.48)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line02/line02"]
-position = Vector2(2.5, 9.5)
-shape = SubResource("RectangleShape2D_4b8xh")
-
-[node name="line03" type="RigidBody2D" parent="Hoop/Line02"]
-position = Vector2(0, 38)
-collision_layer = 2
-
-[node name="ColorRect" type="ColorRect" parent="Hoop/Line02/line03"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.12, 0.48)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line02/line03"]
-position = Vector2(2.5, 9.5)
-shape = SubResource("RectangleShape2D_4b8xh")
-
-[node name="line04" type="RigidBody2D" parent="Hoop/Line02"]
-position = Vector2(0, 57)
-collision_layer = 2
-
-[node name="ColorRect" type="ColorRect" parent="Hoop/Line02/line04"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.12, 0.48)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop/Line02/line04"]
-position = Vector2(2.5, 9.5)
-shape = SubResource("RectangleShape2D_4b8xh")
-
-[node name="PinJoint2D" type="PinJoint2D" parent="Hoop/Line02"]
-position = Vector2(3, 19)
-node_a = NodePath("../line01")
-node_b = NodePath("../line02")
-bias = 0.2
-
-[node name="PinJoint2D2" type="PinJoint2D" parent="Hoop/Line02"]
-position = Vector2(3, 37)
-node_a = NodePath("../line03")
-node_b = NodePath("../line02")
-bias = 0.2
-
-[node name="PinJoint2D3" type="PinJoint2D" parent="Hoop/Line02"]
-position = Vector2(3, 56)
-node_a = NodePath("../line03")
-node_b = NodePath("../line04")
-bias = 0.2
+[connection signal="last_position_pointer" from="Player" to="." method="_on_player_last_position_pointer"]
+[connection signal="timeout" from="Kuma/Timer" to="Kuma" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Kuma/Area2D" to="Kuma" method="_on_area_2d_body_entered"]

@@ -1,8 +1,25 @@
-extends Area2D
+extends RigidBody2D
 
-var velocity = Vector2(350, 0)
+#var velocity = Vector2(350, 0)
 
-func _physics_process(delta):
-	velocity.y += gravity * delta
-	position += velocity * delta
-	#rotation = velocity.angle()
+#var gravity = 680
+
+func _ready():
+	linear_velocity.x = 350
+	$Timer.start(5)
+
+func _process(delta):
+	pass
+		
+	#print(linear_velocity)
+	#linear_velocity.y += gravity * delta
+	
+	#move_and_slide()
+	
+	#velocity.y += gravity * delta
+	#position += velocity * delta
+	#rotation = velocity.angle() 
+
+
+func _on_timer_timeout():
+	queue_free()
